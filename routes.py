@@ -10,8 +10,8 @@ from controller import get_all_files
 router = APIRouter()
 
 @router.post("/upload", status_code=status.HTTP_201_CREATED, summary="Upload files to AWS S3 Buckets",
-             description="Upload a valid file to AWS S3 bucket", name="POST files to AWS S3",
-             response_description="Successfully uploaded file to S3 bucket")
+             description="Upload a file to AWS S3 bucket", name="UPLOAD file to AWS S3",
+             response_description="uploaded file successfully")
 async def upload_file(folder: str, s3: BaseClient = Depends(s3_auth), file_obj: UploadFile = File(...)):
     upload_obj = await upload_file_to_s3(s3_client=s3, file_obj=file_obj.file,
                                        bucket=settings.AWS_BUCKET_NAME,
@@ -20,7 +20,7 @@ async def upload_file(folder: str, s3: BaseClient = Depends(s3_auth), file_obj: 
                                        )
 
     if upload_obj:
-        return JSONResponse(content="Object has been uploaded to bucket successfully",
+        return JSONResponse(content="File has been uploaded to bucket successfully",
                             status_code=status.HTTP_201_CREATED)
     else:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -30,4 +30,8 @@ async def upload_file(folder: str, s3: BaseClient = Depends(s3_auth), file_obj: 
 @router.get("/files",  description="returns all files in the database", name="GET files from db")
 async def get_files():
    all_files =  await get_all_files()
-   return all_files
+   if all_files:
+       return all_files
+   else:
+        raise HTTPException(status_code=status.HTTP_400_NOT_FOUND,
+                            detail="could not get files")
