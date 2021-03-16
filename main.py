@@ -1,7 +1,5 @@
 from fastapi import FastAPI, File, UploadFile, Depends, HTTPException
-from fastapi_sqlalchemy import DBSessionMiddleware
-from pydantic import BaseModel 
-from typing import Optional 
+from fastapi_sqlalchemy import DBSessionMiddleware   
 from routes import router
 from settings import settings
 
