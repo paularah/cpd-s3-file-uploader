@@ -10,7 +10,7 @@ async def upload_file_to_s3(s3_client, file_obj, bucket, folder, object_name=Non
         object_name = file_obj
     # Upload the file
     try:
-        s3_response = s3_client.upload_fileobj(
+        s3_client.upload_fileobj(
             file_obj, bucket, f"{folder}/{object_name}")
         region = s3_client.meta.region_name
         url = f"https://s3.{region}.amazonaws.com/{settings.AWS_BUCKET_NAME}/{folder}...N/{object_name}"
