@@ -9,6 +9,9 @@ fastapi = "*"
 uvicorn = "*"
 pymysql = "*"
 python-dotenv = "*"
+botocore = "*"
+boto3 = "*"
+fastapi-sqlalchemy = "*"
 
 [dev-packages]
 

@@ -1,8 +1,14 @@
-from sqlalchemy.orm import Session
-from . import models, schemas
+from model import Files as FilesModel
+from fastapi_sqlalchemy import db
 
-def get_file_by_id(db: Session, id: str):
-    return db.query(models.FileInfo).filter(models.FileInfo.id == id).first()
 
-def get_all_s3_files(db:Session):
-    return 
+async def save_upload(filename:str, filelink):
+    File = FilesModel(filename=filename, filelink=filelink)
+    db.session.add(File)
+    db.session.commit()
+    db.session.refresh(File)
+    print('file succefully saved to db')
+
+async def get_all_files():
+     all_files = db.session.query(FilesModel).all()
+     return all_files

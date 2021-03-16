@@ -1,14 +1,10 @@
 from fastapi import FastAPI, File, UploadFile, Depends, HTTPException
-import models, schema, controller
-from db import engine, SessionLocal
-from sqlalchemy.orm import Session
+from fastapi_sqlalchemy import DBSessionMiddleware
 from pydantic import BaseModel 
 from typing import Optional 
-from dotenv import load_dotenv
+from routes import router
+from settings import settings
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-load_dotenv(os.path.join(BASE_DIR, ".env"))
-
-
-app = FastAPI()
-
+app = FastAPI(title="Cloud patform development course", description="Simple S3 Buckets uploader")
+app.add_middleware(DBSessionMiddleware,db_url=settings.SQLALCHEMY_DATABASE_URI)
+app.include_router(router)
