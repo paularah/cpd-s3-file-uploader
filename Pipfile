@@ -10,6 +10,8 @@ uvicorn = "*"
 boto3 = "*"
 fastapi-sqlalchemy = "*"
 python-dotenv = "*"
+python-multipart = "*"
+pymysql = "*"
 
 [dev-packages]
 
