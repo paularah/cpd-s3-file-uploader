@@ -13,7 +13,7 @@ async def upload_file_to_s3(s3_client, file_obj, bucket, folder, object_name=Non
         s3_client.upload_fileobj(
             file_obj, bucket, f"{folder}/{object_name}")
         region = s3_client.meta.region_name
-        url = f"https://s3.{region}.amazonaws.com/{settings.AWS_BUCKET_NAME}/{folder}...N/{object_name}"
+        url = f"https://s3.{region}.amazonaws.com/{settings.AWS_BUCKET_NAME}/{folder}/{object_name}"
         await save_upload(filename=object_name, filelink=url)
     except ClientError as e:
         print(e)
