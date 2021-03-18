@@ -1,8 +1,8 @@
-"""create file table
+"""create files table
 
-Revision ID: 437daf4c295f
+Revision ID: 7efcec6f2905
 Revises: 
-Create Date: 2021-03-16 11:04:17.699421
+Create Date: 2021-03-18 17:33:23.084775
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '437daf4c295f'
+revision = '7efcec6f2905'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,7 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('filename', sa.String(length=150), nullable=True),
     sa.Column('filelink', sa.String(length=150), nullable=True),
-    sa.Column('created_at', sa.String(length=150), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_files_id'), 'files', ['id'], unique=False)
